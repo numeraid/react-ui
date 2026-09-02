@@ -1,0 +1,11 @@
+echo "Checking push target branch..."
+
+# Prevent pushing from the local 'main' branch
+current_branch=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || true)
+if [ "$current_branch" = "main" ]; then
+  echo "✖ Direct pushes to 'main' are disabled. Create a branch and open a PR instead."
+  exit 1
+fi
+
+echo "Push allowed from branch '$current_branch'."
+exit 0
