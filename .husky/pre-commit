@@ -1,0 +1,28 @@
+echo "Running pre-commit production checks..."
+
+# Lint whole repo (configured via package.json)
+npm run lint --silent || {
+  echo "✖ Lint failed — commit aborted."
+  exit 1
+}
+
+# Run tests if present (does not fail if no test script is defined)
+npm run test --if-present --silent || {
+  echo "✖ Tests failed — commit aborted."
+  exit 1
+}
+
+# Production-like build to catch bundling/runtime errors
+CI=true npm run build --silent || {
+  echo "✖ Production build failed — commit aborted."
+  exit 1
+}
+
+# Apply fixes to staged files (if configured)
+npx lint-staged --quiet || {
+  echo "✖ lint-staged failed — commit aborted."
+  exit 1
+}
+
+echo "✔ Pre-commit checks passed."
+exit 0
