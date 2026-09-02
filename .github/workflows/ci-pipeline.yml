@@ -4,9 +4,9 @@ on:
   push:
     branches: [main, development]
     paths-ignore:
-      # Markdown files in the docs folder are not part of the build process, so we can ignore them to avoid unnecessary builds.
       - "**/*.md"
-      - "**/docs/**"
+      - "LICENSE"
+      - "**/documentation/**"
   pull_request:
     branches: [main, development]
   workflow_dispatch:
