@@ -13,7 +13,7 @@ provider "kubernetes" {
 
 variable "namespace" {
   type    = string
-  default = "numeraid"
+  default = "numeraid-ui"
 }
 
 variable "image" {
